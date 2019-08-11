@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>System</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='icon' href="C:\Users\Pasilo He\Pictures\Camera Roll\title.png" />
+    <script src="echarts.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .box-shadow {
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05)
+        }
+
+        .log-out-base {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .log-out:hover {
+            margin-right: 15px;
+            color: #ffc107 !important;
+            text-decoration: none;
+        }
+
+        .style-when-sign-in {
+            display: inline-block;
+        }
+
+        .style-when-sign-out {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white box-shadow">
+            <a class="navbar-brand" href="#" style="font-size: 30px!important;">
+                <img src="C:\Users\Pasilo He\Pictures\Camera Roll\title.png" width="49" height="40"
+                    class="d-inline-block align-top" alt="">
+                System
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link font-menu-item" href="#">Career</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-menu-item" href="#">House</a>
+                    </li>
+                </ul>
+                <div class="style-when-login-in">
+                    <a href="login.html" class="log-out log-out-base">
+                        <span>Log out</span>
+                    </a>
+                    <a href="#" style="min-width: 40px;height: 40px!important;">
+                        <img src="C:\Users\Pasilo He\Pictures\Camera Roll\beauty.jfif" alt="" class="rounded-circle"
+                            style="margin-right:20px;;max-width: 38px;max-height: 38px;">
+                    </a>
+                </div>
+
+                <div class="style-when-log-out">
+                    <a href="" class="">
+                        <span>Sign in</span>
+                    </a>
+                    <button class="btn btn-outline-primary" type="submit">Sign up</button>
+                </div>
+            </div>
+
+        </nav>
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('chart1'));
+        var myChart2 = echarts.init(document.getElementById('chart2'))
+
+        // 指定图表的配置项和数据
+        var option1 = {
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                type: 'line',
+                areaStyle: {}
+            }]
+        };
+
+        var option2 = {
+            title: {
+                text: '基础雷达图'
+            },
+            tooltip: {},
+            legend: {
+                data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: [{
+                        name: '销售（sales）',
+                        max: 6500
+                    },
+                    {
+                        name: '管理（Administration）',
+                        max: 16000
+                    },
+                    {
+                        name: '信息技术（Information Techology）',
+                        max: 30000
+                    },
+                    {
+                        name: '客服（Customer Support）',
+                        max: 38000
+                    },
+                    {
+                        name: '研发（Development）',
+                        max: 52000
+                    },
+                    {
+                        name: '市场（Marketing）',
+                        max: 25000
+                    }
+                ]
+            },
+            series: [{
+                name: '预算 vs 开销（Budget vs spending）',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: [{
+                        value: [4300, 10000, 28000, 35000, 50000, 19000],
+                        name: '预算分配（Allocated Budget）'
+                    },
+                    {
+                        value: [5000, 14000, 28000, 31000, 42000, 21000],
+                        name: '实际开销（Actual Spending）'
+                    }
+                ]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart1.setOption(option1);
+        myChart2.setOption(option2)
+    </script>
+</body>
+
+</html>

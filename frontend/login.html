@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="C:\Users\Pasilo He\Pictures\Camera Roll\title.png" type="img/png">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <style>
+    #some {
+      margin: auto;
+      border-radius: 7px;
+      border-style: solid;
+      border-width: thin;
+      padding: 20px;
+      border-color: #ddd;
+      background-color: #fff;
+      width: 350px;
+    }
+
+    .input-font {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    }
+
+    img {
+      margin: auto;
+      max-width: 120px;
+      clip: rect(0px 0px)
+    }
+
+    .img-border-control {
+      padding-top: 32px !important;
+      padding-bottom: 5px !important;
+    }
+
+    .img-cover {
+      height: 100px;
+      width: 61px;
+      overflow: hidden;
+      margin: auto;
+      padding-bottom: 0px !important;
+    }
+
+    p {
+      border: solid thin #ddd;
+      text-align: center;
+      padding: 15px 20px;
+      margin: auto;
+      margin-block-start: 1.5em;
+      margin-block-end: 1em;
+      border-radius: 5px;
+      width: 350px;
+      font-size: 14px !important;
+    }
+
+    li {
+      display: inline;
+    }
+
+    footer {
+      text-align: center;
+      width: 100%;
+      margin-top: 50px;
+      font-size: 14px;
+      font-weight: 470;
+    }
+  </style>
+</head>
+
+<body style="background-color: #f9f9f9">
+
+  <div class="container">
+    <!-- our logo -->
+    <div class="row img-border-control">
+      <div class="img-cover">
+        <img src="C:\Users\Pasilo He\Pictures\Camera Roll\logo.png" class="rounded-circle" alt="">
+      </div>
+    </div>
+    <!-- some welcome words -->
+    <div class="row" id="solgan">
+      <h2 style="font-family:Century Gothic;margin:auto;font-size: 1.7em!important;">Sign in to our system!</h2>
+    </div>
+    <!-- alert when login fail -->
+    <div class="row">
+      <div class="alert alert-danger alert-dismissible" role="alert" id="danger"
+        style="margin: 20px auto 0px auto;font-size: 14px;width: 350px;display: none;">
+        Incorrect username or password!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="font-size: 21px!important;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <!-- input form -->
+    <div class="row" style="margin-top: 16px!important;">
+      <div id="some">
+        <form action="www.baidu.com" method="post">
+          <div class="form-group">
+            <label for="exampleInpuBtEmail1" class="input-font">Username or Email Address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" class="input-font">Password</label>
+            <a href="#Forget-password-link" style="float: right;" class="input-font">Forget password?</a>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <button type="submit" id="sub_btn" class="btn btn-primary" style="width: 100%;margin-top: 14px;"
+            onclick="return checkInfo()">Sign in</button>
+        </form>
+      </div>
+    </div>
+    <!-- sign up form -->
+    <div class="row" id="signup">
+      <p>New to us? <a href="register.html">Create an account</a></p>
+    </div>
+  </div>
+  <footer>
+    <ul style="padding: 0px 40px!important;">
+      <li style="margin-right: 20px;">Copyright&copy;Group3</li>
+      <li><a href="#contact-us-link">Contact us</a></li>
+    </ul>
+
+  </footer>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+</body>
+
+<script>
+  window.sr = ScrollReveal()
+
+  sr.reveal('#solgan', {
+    duration: 1600,
+    origin: "top",
+    distance: '300px'
+  })
+
+  sr.reveal('.img-border-control', {
+    duration: 1800,
+    origin: "top",
+    distance: '300px'
+  })
+  sr.reveal('#some', {
+    duration: 1600,
+    origin: "bottom",
+    distance: '100px'
+  })
+  sr.reveal('#signup', {
+    duration: 1800,
+    origin: "bottom",
+    distance: '100px'
+  })
+</script>
+<script>
+  account = $('#account').val
+  passwd = $('#passwd').val
+  if (account != null && passwd != null) {
+    $('#danger').css('display', 'none')
+  }
+  $('#sub_btn').onclick = function (e) {
+    console.log(e)
+  }
+
+  function checkInfo() {
+
+
+    return false;
+  }
+</script>
+
+</html>
