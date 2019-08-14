@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <div th:if="${count} gt 1">
+        <h1>Count:
+            <span th:text="${count}">number</span>
+        </h1>
+    </div>
+    <div th:if="${count} lt 60">
+        <h1>Less than 60! SUCKER!</h1>
+    </div>
+</body>
+</html>
