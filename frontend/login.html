@@ -87,15 +87,9 @@
     <div class="row" id="solgan">
       <h2 style="font-family:Century Gothic;margin:auto;font-size: 1.7em!important;">Sign in to our system!</h2>
     </div>
-    <!-- alert when login fail -->
-    <div class="row">
-      <div class="alert alert-danger alert-dismissible" role="alert" id="danger"
-        style="margin: 20px auto 0px auto;font-size: 14px;width: 350px;display: none;">
-        Incorrect username or password!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="font-size: 21px!important;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <!-- warning alert -->
+    <div class="row" id="warning">
+
     </div>
     <!-- input form -->
     <div class="row" style="margin-top: 16px!important;">
@@ -103,16 +97,17 @@
         <form action="www.baidu.com" method="post">
           <div class="form-group">
             <label for="exampleInpuBtEmail1" class="input-font">Username or Email Address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="Username">
+            <input type="text" class="form-control" id="account" aria-describedby="emailHelp" placeholder="Username">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1" class="input-font">Password</label>
             <a href="#Forget-password-link" style="float: right;" class="input-font">Forget password?</a>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" class="form-control" id="passwd" placeholder="Password">
           </div>
           <button type="submit" id="sub_btn" class="btn btn-primary" style="width: 100%;margin-top: 14px;"
-            onclick="return checkInfo()">Sign in</button>
+            onclick="return checkInfo()">
+            Sign in
+          </button>
         </form>
       </div>
     </div>
@@ -168,19 +163,53 @@
   })
 </script>
 <script>
-  account = $('#account').val
-  passwd = $('#passwd').val
-  if (account != null && passwd != null) {
-    $('#danger').css('display', 'none')
-  }
   $('#sub_btn').onclick = function (e) {
     console.log(e)
   }
 
+  var warning_alert =
+    "<div class=\"alert alert-warning alert-dismissible\" role=\"alert\" style=\"margin: 20px auto 0px auto;font-size: 14px;width: 350px;display: block;\"> Incomplete username or passwd!<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" style=\"font-size: 21px!important;\"><span aria-hidden=\"true\">&times;</span></button> </div>";
+  var danger_alert_prefix =
+    "<div class=\"alert alert-danger alert-dismissible\" role=\"alert\" id=\"danger\" style=\"margin: 20px auto 0px auto;font-size: 14px;width: 350px;display: block;\">";
+  var danger_alert_suffix =
+    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\" style=\"font-size: 21px!important;\"><span aria-hidden=\"true\">&times;</span></button></div>";
+
+  var ILLEGAL_MSG = "Illegal username or passwd!";
+
   function checkInfo() {
+    var account = $('#account').val()
+    var passwd = $('#passwd').val()
+    var warning = $('#warning')
+    if (!notEmpty(account, passwd)) {
+      warning.empty()
+      warning.append(warning_alert)
+      return false;
+    }
+    if (!isLegal(account, passwd)) {
+      warning.empty()
+      warning.append(danger_alert_prefix + ILLEGAL_MSG + danger_alert_suffix)
+      return false;
+    }
+    return true;
+  }
 
+  function notEmpty(account, passwd) {
+    if (account === '' || passwd === '') {
 
-    return false;
+      return false;
+    }
+    return true;
+  }
+
+  function isLegal(account, passwd) {
+    let username_pattern = /[\da-zA-Z\-\*#@]{0,25}/;
+    let passwd_pattern = /^[a-zA-Z\d][\dA-Za-z\-\*#@]{0,25}/;
+
+    if (passwd_pattern.test(passwd) && username_pattern.test(account)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 </script>
 

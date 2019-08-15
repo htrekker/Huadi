@@ -11,6 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/scrollreveal"></script>
     <style>
         .box-shadow {
             box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05)
@@ -34,56 +35,200 @@
         .style-when-sign-out {
             display: none;
         }
+
+        ul li:hover {
+            border-radius: 5px;
+            background-color: #eaecef;
+            text-decoration: none;
+        }
+
+        ul a {
+            color: #6c757d;
+        }
+
+        ul a:hover {
+            color: #0366d6 !important;
+        }
+
+        .item-active {
+            background-color: #007bff;
+            border-radius: 5px;
+            color: white !important;
+        }
+
+
+        .item-active:hover {
+            color: white !important;
+        }
+
+
+        footer {
+            padding: 24px 40px 24px 40px !important;
+            font-size: 14px;
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, .05) !important;
+            display: flex;
+        }
+
+        footer ul {
+            list-style: none;
+            margin-bottom: 0px !important;
+        }
+
+        @-webkit-keyframes fade {
+            0% {
+                opacity: 1;
+                transform: scale(1, 1) translate(0px, 0px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.5, 0.5) translate(0px, 300px);
+            }
+        }
+
+        .canvas-hide {
+            display: none!important;
+        }
+
+        /* #canvas {
+            -webkit-animation: mymove 2s;
+        } */
     </style>
 </head>
 
 <body>
-    <section>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white box-shadow">
-            <a class="navbar-brand" href="#" style="font-size: 30px!important;">
-                <img src="C:\Users\Pasilo He\Pictures\Camera Roll\title.png" width="49" height="40"
-                    class="d-inline-block align-top" alt="">
-                System
-            </a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
-                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link font-menu-item" href="#">Career</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link font-menu-item" href="#">House</a>
-                    </li>
-                </ul>
-                <div class="style-when-login-in">
-                    <a href="login.html" class="log-out log-out-base">
-                        <span>Log out</span>
-                    </a>
-                    <a href="#" style="min-width: 40px;height: 40px!important;">
-                        <img src="C:\Users\Pasilo He\Pictures\Camera Roll\beauty.jfif" alt="" class="rounded-circle"
-                            style="margin-right:20px;;max-width: 38px;max-height: 38px;">
-                    </a>
+    <div style="min-height: calc(100vh - 108.8px);">
+        <section>
+            <nav class="navbar navbar-expand-sm navbar-light bg-white box-shadow">
+                <a class="navbar-brand" href="#" style="font-size: 30px!important;">
+                    <img src="C:\Users\Pasilo He\Pictures\Camera Roll\title.png" width="49" height="40"
+                        class="d-inline-block align-top" alt="">
+                    System
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link font-menu-item" href="#">Career</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-menu-item" href="#">House</a>
+                        </li>
+                    </ul>
+                    <div class="style-when-login-in">
+                        <a href="login.html" class="log-out log-out-base">
+                            <span>Log out</span>
+                        </a>
+                        <a href="#" style="min-width: 40px;height: 40px!important;">
+                            <img src="C:\Users\Pasilo He\Pictures\Camera Roll\beauty.jfif" alt="" class="rounded-circle"
+                                style="margin-right:20px;;max-width: 38px;max-height: 38px;">
+                        </a>
+                    </div>
+
+                    <div class="style-when-log-out">
+                        <a href="" class="">
+                            <span>Sign in</span>
+                        </a>
+                        <button class="btn btn-outline-primary" type="submit">Sign up</button>
+                    </div>
                 </div>
 
-                <div class="style-when-log-out">
-                    <a href="" class="">
-                        <span>Sign in</span>
-                    </a>
-                    <button class="btn btn-outline-primary" type="submit">Sign up</button>
+            </nav>
+        </section>
+
+        <section>
+            <div class="container" style="max-width: 1200px!important;">
+                <div style="height: 40px;"></div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2" id="item-list" style="border-right: 0.2px solid #c0c2c1;">
+                        <ul class="nav flex-column">
+                            <li class="nav-item" id="function1">
+                                <a class="nav-link item-active" href="#">active
+                                </a>
+                            </li>
+                            <li class="nav-item" id="function2">
+                                <a class="nav-link" href="#">City</a>
+                            </li>
+                            <li class="nav-item" id="function3">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item" id="function4">
+                                <a class="nav-link" href="#">Disabled</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-10 col-md-10">
+                        <div style="height: calc(100vh - 275px);padding-top: 20px;" id="canvas1">
+
+                        </div>
+                        <div class="canvas-hide" id="canvas2">
+
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-        </nav>
-    </section>
+    </div>
+    <footer>
+        <span class="text-muted" id='copyright'>&copy; 2019 Copyright,Group3.</span>
+        <ul class="d-flex ml-auto" id="icons">
+            <li class="mr-3">
+                <a href="https://twitter.com/" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com" style="color: #959da5;"><svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.linkedin.com" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com" style="color: #959da5!important;">
+                    <svg height="20" alt="GitHub" viewBox="0 0 16 16" version="1.1" width="20" class="d-block"
+                        height="18">
+                        <path fill="currentColor"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
@@ -92,90 +237,135 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script type="text/javascript">
+        window.sr = ScrollReveal()
+        sr.reveal('nav', {
+            duration: 1200,
+            origin: 'bottom'
+        })
+        sr.reveal('#icons', {
+            duration: 1000,
+            origin: 'bottom',
+            distance: '20px'
+        })
+        sr.reveal('#copyright', {
+            duration: 1000,
+            origin: 'bottom',
+            distance: '20px'
+        })
+        sr.reveal('#item-list', {
+            duration: 1500,
+            origin: 'left',
+            distance: '300px'
+        })
+        sr.reveal('#canvas1', {
+            duration: 1500,
+            origin: 'right',
+            distance: '300px'
+        })
+    </script>
+    <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart1 = echarts.init(document.getElementById('chart1'));
-        var myChart2 = echarts.init(document.getElementById('chart2'))
+        var myChart = echarts.init(document.getElementById('canvas1'));
 
         // 指定图表的配置项和数据
-        var option1 = {
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line',
-                areaStyle: {}
-            }]
-        };
-
-        var option2 = {
+        var option = {
             title: {
-                text: '基础雷达图'
+                text: 'ECharts 入门示例'
             },
             tooltip: {},
             legend: {
-                data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+                data: ['销量', '售价']
             },
-            radar: {
-                // shape: 'circle',
-                name: {
-                    textStyle: {
-                        color: '#fff',
-                        backgroundColor: '#999',
-                        borderRadius: 3,
-                        padding: [3, 5]
-                    }
-                },
-                indicator: [{
-                        name: '销售（sales）',
-                        max: 6500
-                    },
-                    {
-                        name: '管理（Administration）',
-                        max: 16000
-                    },
-                    {
-                        name: '信息技术（Information Techology）',
-                        max: 30000
-                    },
-                    {
-                        name: '客服（Customer Support）',
-                        max: 38000
-                    },
-                    {
-                        name: '研发（Development）',
-                        max: 52000
-                    },
-                    {
-                        name: '市场（Marketing）',
-                        max: 25000
-                    }
-                ]
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "陈越", 'phone']
             },
+            yAxis: {},
             series: [{
-                name: '预算 vs 开销（Budget vs spending）',
-                type: 'radar',
-                // areaStyle: {normal: {}},
-                data: [{
-                        value: [4300, 10000, 28000, 35000, 50000, 19000],
-                        name: '预算分配（Allocated Budget）'
-                    },
-                    {
-                        value: [5000, 14000, 28000, 31000, 42000, 21000],
-                        name: '实际开销（Actual Spending）'
-                    }
-                ]
-            }]
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20, 21, 50]
+                },
+                {
+                    name: 'hello',
+                    type: 'bar',
+                    data: [4, 5, 21, 30, 8, 45]
+                }
+            ]
         };
 
         // 使用刚指定的配置项和数据显示图表。
-        myChart1.setOption(option1);
-        myChart2.setOption(option2)
+        myChart.setOption(option);
+    </script>
+    <script type="text/javascript">
+        var active_position = $("#function1 a") // 初试条件下 active的按钮为第一个
+        var current_canvas = '#canvas1'
+        var interval_id = null
+        var canvas_set = {
+            '#canvas1': '#canvas2',
+            '#canvas2': '#canvas1'
+        }
+
+        // 将传入的button设置为不活跃
+        function resetActive() {
+            active_position.removeClass("item-active")
+            active_position.css('color', '#6c757d')
+        }
+
+        // 将传入的button设置为活跃
+        function setActive(btn) {
+            btn.addClass("item-active")
+            btn.css("color", "white")
+        }
+
+        // 替换活跃的button
+        function change(btn) {
+            setActive(btn)
+            resetActive()
+            active_position = btn
+        }
+
+        // 随便写写的动画
+        function canvasExit() {
+            $(current_canvas).css('-webkit-animation', 'fade 1.5s')
+            $(current_canvas).css('-webkit-animation-fill-mode', 'forwards')
+            interval_id = setTimeout(function(){
+                doCleanup()
+            }, 1500)
+        }
+
+        // 干一些脏活
+        function doCleanup() {
+            exited_box = $(current_canvas)
+            exited_box.addClass('canvas-hide')
+            let canvas = canvas_set[current_canvas]
+            box = $(canvas)
+            box.css('height', 'calc(100vh - 275px)')
+            box.css('padding-top', '20px')
+            box.removeClass('canvas-hide')
+            myChart.clear()
+            current_canvas = canvas
+            myChart = echarts.init($(current_canvas).get(0));
+            myChart.setOption(option); 
+            canvas = canvas_set[current_canvas];
+            cleanAnnimation(exited_box)
+        }
+
+        // 清空已经表演完的动画
+        function cleanAnnimation(box){
+            box.css('-webkit-animation', '')
+            box.css('-webkit-animation-fill-mode', '')
+        }
+
+        // 为四个按钮绑定事件监听器
+        for (i = 1; i <= 4; i++) {
+            let id = "#function" + i + " a"
+            $(id).click(function () {
+                let a = $(id)
+                change(a)
+                canvasExit()
+                // myChart.clear()
+            })
+        }
     </script>
 </body>
 
