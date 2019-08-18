@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.HouseDistrictPriceMapper">
+    <resultMap id="DistrictPriceMapper" type="com.pasilo.bean.HouseDistrictPrice">
+        <result column="city" property="cityName"/>
+        <result column="district" property="district"/>
+        <result column="avg_sale_price" property="averageSalePrice"/>
+        <result column="avg_rent_price" property="averageRentPrice"/>
+    </resultMap>
+
+
+    <select id="getDistrictPriceByCity" parameterType="string" resultMap="DistrictPriceMapper">
+        SELECT district, avg_sale_price, avg_rent_price FROM house_rent_district
+        WHERE city=#{cityName}
+    </select>
+
+
+</mapper>
