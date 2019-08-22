@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.CityLocationMapper">
+
+    <select id="getGeoCities" resultType="com.pasilo.bean.CityWithLocation">
+        SELECT
+        	t1.city AS city,
+        	t1.longitude AS longitude,
+        	t1.latitude AS latitude,
+        	( t2.sale_count + t2.rent_count ) AS num
+        FROM
+        	city_location t1, house_count t2
+        WHERE
+        	t1.city = t2.city_name
+    </select>
+
+</mapper>

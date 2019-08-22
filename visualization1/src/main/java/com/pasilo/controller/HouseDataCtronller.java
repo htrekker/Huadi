@@ -7,6 +7,7 @@ import com.pasilo.service.CityRankService;
 import com.pasilo.service.HouseCountService;
 import com.pasilo.service.HouseDistrictPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +22,6 @@ public class HouseDataCtronller {
 	private HouseCountService service;
 
 	@Autowired
-	private HouseDistrictPriceService districtPriceService;
-
-	@Autowired
 	private CityRankService rankService;
 
 	@RequestMapping(value = "/count")
@@ -34,21 +32,12 @@ public class HouseDataCtronller {
 	}
 
 	@RequestMapping(value = "/rank")
-	public Option getRank(){
-		Option option = rankService.getRankByCity("sh");
+	public Option getRank(String city){
+		Option option = rankService.getRankByCity(city);
 
 		return option;
 	}
 
-	@RequestMapping(value = "/district-heat-map")
-	public Option getHeatMap(@RequestParam(value = "city",required = false) String cityName){
-		if(cityName == null){
-			cityName = "bj";
-		}
-		Option option = districtPriceService.getCityHeatMap(cityName);
-
-		return option;
-	}
 
 
 }

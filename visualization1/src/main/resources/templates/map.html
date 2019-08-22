@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>System</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='icon' th:href="@{image/title.png}"/>
+    <script src="/webjars/echarts/4.0.4/dist/echarts.js"></script>
+    <script type="text/javascript" th:src="@{js/bmap.js}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{js/ScrollReveal.js}"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=teQ6Qqg6jGSq3SiMSkifUDkDySljGE5s">
+    </script>
+    <style>
+        .canvas-hide {
+            display: none !important;
+        }
+
+        .box-shadow {
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05)
+        }
+
+        .log-out-base {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .log-out:hover {
+            margin-right: 15px;
+            color: #ffc107 !important;
+            text-decoration: none;
+        }
+
+        .style-when-sign-in {
+            display: inline-block;
+        }
+
+        .style-when-sign-out {
+            display: none;
+        }
+
+        ul li:hover {
+            border-radius: 5px;
+            background-color: #eaecef;
+            text-decoration: none;
+        }
+
+        ul a {
+            color: #6c757d;
+        }
+
+        ul a:hover {
+            color: #0366d6 !important;
+        }
+
+        .item-active {
+            background-color: #007bff;
+            border-radius: 5px;
+            color: white !important;
+        }
+
+
+        .item-active:hover {
+            color: white !important;
+        }
+
+
+        footer {
+            padding: 24px 40px 24px 40px !important;
+            font-size: 14px;
+            /* margin-top: 40px; */
+            background-color: rgba(0, 0, 0, .05) !important;
+            display: flex;
+        }
+
+        footer ul {
+            list-style: none;
+            margin-bottom: 0px !important;
+        }
+
+        @-webkit-keyframes fade {
+            0% {
+                opacity: 1;
+                transform: scale(1, 1) translate(0px, 0px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.5, 0.5) translate(0px, 300px);
+            }
+        }
+
+        .canvas-hide {
+            display: none !important;
+        }
+
+        #logo {
+            height: 49px;
+            width: 40px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div style="min-height: calc(100vh - 68.8px);">
+    <section>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white box-shadow">
+            <div id="logo">
+                <img th:src="@{image/title.png}" width="49" height="40"
+                     class="d-inline-block align-top" alt="">
+            </div>
+            <a class="navbar-brand" href="#" style="font-size: 30px!important;">
+
+                System
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link font-menu-item" href="/main">职业分析</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link font-menu-item" href="/house">住房分析</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link font-menu-item" href="#">详细数据</a>
+                    </li>
+                </ul>
+                <div class="style-when-login-in">
+                    <a href="/logout" class="log-out log-out-base">
+                        <span>Log out</span>
+                    </a>
+                    <a href="/settings" style="min-width: 40px;height: 40px!important;">
+                        <img th:src="@{/image/title.png}" alt="" class="rounded-circle"
+                             style="margin-right:20px;;max-width: 38px;max-height: 38px;">
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+    </section>
+
+    <section>
+        <div class="container" style="max-width: 1200px!important;">
+            <div style="height: 20px;"></div>
+            <div class="row">
+                <div class="col-lg-10 col-md-10 mr-auto ml-auto">
+                    <div style="overflow: hidden;">
+                        <div style="height: calc(100vh - 180px);" id="canvas1">
+
+                        </div>
+                    </div>
+                    <div style="overflow: hidden;" class="canvas-hide">
+                        <div style="height: calc(100vh - 180px);" id="canvas2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+</div>
+<footer>
+    <div th:replace="footer"></div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+<script type="text/javascript">
+    window.sr = ScrollReveal()
+    sr.reveal('nav', {
+        duration: 1200,
+        origin: 'bottom'
+    })
+    sr.reveal('#icons', {
+        duration: 1000,
+        origin: 'bottom',
+        distance: '20px'
+    })
+    sr.reveal('#copyright', {
+        duration: 1000,
+        origin: 'bottom',
+        distance: '20px'
+    })
+    sr.reveal('#item-list', {
+        duration: 1500,
+        origin: 'left',
+        distance: '300px'
+    })
+    sr.reveal('#canvas1', {
+        duration: 1500,
+        origin: 'right',
+        distance: '300px'
+    })
+</script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('canvas1'));
+
+    option = {
+        title: {
+            text: '全国主要城市空气质量 - 百度地图',
+            subtext: 'data from PM25.in',
+            sublink: 'http://www.pm25.in',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        bmap: {
+            center: [114.114129, 35.550339],
+            zoom: 5,
+            roam: true,
+            mapStyle: {
+                // styleJson:
+            }
+        },
+        series: [{
+            name: 'pm2.5',
+            type: 'scatter',
+            coordinateSystem: 'bmap',
+            // data: convertData(data),
+            symbolSize: function (val) {
+                return val[2] / 5;
+            },
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: false
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#007bff'
+                }
+            }
+        },
+            {
+                name: 'Top 5',
+                type: 'effectScatter',
+                coordinateSystem: 'bmap',
+                // data: convertData(data),
+                symbolSize: function (val) {
+                    return val[2] / 5;
+                },
+                showEffectOn: 'render',
+                rippleEffect: {
+                    brushType: 'stroke'
+                },
+                hoverAnimation: true,
+                label: {
+                    normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: true
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#007bff',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                zlevel: 1
+            }
+        ]
+    };
+    myChart.showLoading()
+    $.ajax("/geo/mapstyle.json", {
+        method: 'GET',
+        success: function (style) {
+            option.bmap.mapStyle.styleJson = style.style
+            $.ajax('/api/district/geo', {
+                method: 'GET',
+                success: function (data) {
+                    option.series[0].data = data
+                    option.series[1].data = data
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    myChart.hideLoading()
+                }
+            })
+        }
+    })
+
+
+    var bmap = myChart.getModel().getComponent('bmap').getBMap();
+    bmap.addControl(new BMap.MapTypeControl());
+</script>
+<script type="text/javascript">
+    var active_position = $("#function1 a") // 初试条件下 active的按钮为第一个
+    var current_canvas = '#canvas1'
+    var interval_id = null
+    var canvas_set = {
+        '#canvas1': '#canvas2',
+        '#canvas2': '#canvas1'
+    }
+
+    // 将传入的button设置为不活跃
+    function resetActive() {
+        active_position.removeClass("item-active")
+        active_position.css('color', '#6c757d')
+    }
+
+    // 将传入的button设置为活跃
+    function setActive(btn) {
+        btn.addClass("item-active")
+        btn.css("color", "white")
+    }
+
+    // 替换活跃的button
+    function change(btn) {
+        setActive(btn)
+        resetActive()
+        active_position = btn
+    }
+
+    // 随便写写的动画
+    function canvasExit() {
+        $(current_canvas).css('-webkit-animation', 'fade 1.5s')
+        $(current_canvas).css('-webkit-animation-fill-mode', 'forwards')
+        interval_id = setTimeout(function () {
+            doCleanup()
+        }, 1500)
+    }
+
+    // 干一些脏活
+    function doCleanup() {
+        exited_box = $(current_canvas)
+        exited_box.addClass('canvas-hide')
+        let canvas = canvas_set[current_canvas]
+        box = $(canvas)
+        box.css('height', 'calc(100vh - 180px)')
+        box.css('padding-top', '20px')
+        box.removeClass('canvas-hide')
+        myChart.clear()
+        current_canvas = canvas
+        myChart = echarts.init($(current_canvas).get(0));
+        myChart.setOption(option);
+        canvas = canvas_set[current_canvas];
+        cleanAnnimation(exited_box)
+    }
+
+    // 清空已经表演完的动画
+    function cleanAnnimation(box) {
+        box.css('-webkit-animation', '')
+        box.css('-webkit-animation-fill-mode', '')
+    }
+
+    // 为四个按钮绑定事件监听器
+    for (i = 1; i <= 4; i++) {
+        let id = "#function" + i + " a"
+        $(id).click(function () {
+            let a = $(id)
+            change(a)
+            canvasExit()
+
+            // myChart.showLoading()
+            // myChart.hideLoading()
+            // myChart.clear()
+        })
+    }
+
+    myChart.on('click', function (params) {
+        window.location = "/city/district/" + params.name
+    })
+
+</script>
+</body>
+
+</html>

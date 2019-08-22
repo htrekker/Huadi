@@ -33,9 +33,38 @@ public class MainController {
 	public String houseAnalysis(Model model, HttpServletRequest request){
 		HttpSession session = request.getSession();
 
-		model.addAttribute("status", true);
+		if(session.getAttribute("status") != null){
+			boolean flag = (boolean) session.getAttribute("status");
+			System.out.println(flag);
+			if (flag) {// 检查用户是否登录，如果登录 将标记置为true
+				model.addAttribute("status", flag);
+				model.addAttribute("taget","house");
 
-		return "house";
+				return "house";
+			}
+			return "redirect:login";
+		}else{
+			model.addAttribute("status",false);
+			return "redirect:login";
+		}
+
+	}
+
+	@RequestMapping(value = "/district", method = RequestMethod.GET)
+	public String districtInfo(HttpServletRequest request){
+
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("status") != null){
+			boolean flag = (boolean) session.getAttribute("status");
+			System.out.println(flag);
+			if (flag) {// 检查用户是否登录，如果登录 将标记置为true
+				return "map";
+			}
+			return "redirect:login";
+		}else{
+			return "redirect:login";
+		}
 	}
 
 }

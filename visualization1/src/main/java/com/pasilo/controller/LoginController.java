@@ -16,8 +16,39 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/login/admin", method = RequestMethod.GET)
+	public String getAdminPage() {
+		return "admin_login";
+	}
+
+	@RequestMapping(value = "/login/admin", method = RequestMethod.POST)
+	public String adminLogin(HttpServletRequest request, String username, String password, Model model) {
+		HttpSession session = request.getSession();
+
+		boolean flag = userService.ifAdmin(new User(username, password));
+
+		if (flag) {
+			model.addAttribute("status", flag);
+			session.setAttribute("username", username);
+			session.setAttribute("status", flag);
+
+			return "redirect:/admin";
+		}else{
+			model.addAttribute("code", -1);
+			session.setAttribute("status", flag);
+			return "redirect:/login/admin";
+		}
+
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login_page() {
+	public String login_page(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("code") != null) {
+			if ("deletesuccess".equals(session.getAttribute("code"))) {
+				model.addAttribute("code", "delete_success");
+			}
+		}
 		return "login";
 	}
 
@@ -27,13 +58,14 @@ public class LoginController {
 		System.out.println(flag);
 
 		HttpSession session = request.getSession();
-		if (flag == true) {
+		if (flag) {
 			model.addAttribute("status", flag);
-			model.addAttribute("code","safe");
+			model.addAttribute("code", "safe");
 			session.setAttribute("status", flag);
+			session.setAttribute("username", username);
 			return "redirect:main";
 		} else {
-			model.addAttribute("code",-1);
+			model.addAttribute("code", -1);
 			session.setAttribute("status", flag);
 			return "login";
 		}
@@ -47,8 +79,8 @@ public class LoginController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public String createAccount(String username, String password, String rePassword, HttpServletRequest request) {
-
-		if (username == null || password == null || rePassword == null) {
+		System.out.println(rePassword);
+		if (username == null || "".equals(password) || "".equals(rePassword)) {
 			return "FATAL";// 没输入
 		}
 

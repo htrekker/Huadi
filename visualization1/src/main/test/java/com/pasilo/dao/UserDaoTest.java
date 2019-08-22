@@ -32,6 +32,6 @@ public class UserDaoTest {
 
 	@Test
 	public void testUpdate() throws Exception {
-		userMapper.updatePassword("123");
+//		userMapper.updatePassword("123");
 	}
 }

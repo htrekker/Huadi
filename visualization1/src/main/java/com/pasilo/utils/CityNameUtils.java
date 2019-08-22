@@ -14,5 +14,14 @@ public class CityNameUtils {
 		return null;
 	}
 
+	public static String getCityCode(String cityName) {
+		for (int i = 1; i < cities.length; i = i + 2) {
+			if (cities[i].equals(cityName)) {
+				return cities[i - 1];
+			}
+		}
+		return null;
+	}
+
 
 }

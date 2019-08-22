@@ -6,13 +6,32 @@
         <result column="district" property="district"/>
         <result column="avg_sale_price" property="averageSalePrice"/>
         <result column="avg_rent_price" property="averageRentPrice"/>
+        <result column="rent_amount" property="rentAmount"/>
+        <result column="sale_amount" property="saleAmount"/>
     </resultMap>
 
 
     <select id="getDistrictPriceByCity" parameterType="string" resultMap="DistrictPriceMapper">
-        SELECT district, avg_sale_price, avg_rent_price FROM house_rent_district
-        WHERE city=#{cityName}
+        SELECT t1.city as district, t2.avg_sale_price, t2.avg_rent_price FROM city_code t1, house_district t2
+        WHERE t1.code=t2.district AND t2.city_name=#{cityName}
     </select>
 
+    <select id="getDistrictAmountByCity" parameterType="string" resultMap="DistrictPriceMapper">
+        SELECT t1.city as district, t2.sale_amount as sale_amount, t2.rent_amount as rent_amount FROM city_code t1, house_district t2
+        WHERE t1.code=t2.district AND t2.city_name=#{cityName}
+    </select>
+
+
+    <select id="getRentMinAndMAx" parameterType="string" resultType="map">
+        select min(avg_rent_price) as min, max(avg_rent_price) as max
+        from house_district
+        where city_name=#{cityName}
+    </select>
+
+    <select id="getSaleRange" parameterType="string" resultType="map">
+        select min(avg_sale_price) as min, max(avg_sale_price) as max
+        from house_district
+        where city_name=#{city}
+    </select>
 
 </mapper>

@@ -4,6 +4,15 @@ public class User {
 
 	private String username;
 	private String password;
+	private int type;
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
 
 	public User(String username, String password) {
 		this.username = username;
@@ -31,6 +40,7 @@ public class User {
 		return "User{" +
 				"username='" + username + '\'' +
 				", password='" + password + '\'' +
-				'}';
+				", type=" + type +
+				"}\n";
 	}
 }

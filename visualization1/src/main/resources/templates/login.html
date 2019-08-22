@@ -37,8 +37,13 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
         </div>
-        <div th:if="${code} eq 0">
-
+        <div th:if="${code} eq 'delete_success'" class="warning-alert-style">
+            <div class="alert alert-success alert-dismissible warning-alert-wrapper" role="alert">
+                Deleted success!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        style="font-size: 21px!important;">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
         </div>
     </div>
     <!-- input form -->
@@ -52,7 +57,6 @@
                 </div>
                 <div class="form-group">
                     <label for="passwd" class="input-font">Password</label>
-                    <a href="#Forget-password-link" style="float: right;" class="input-font">Forget password?</a>
                     <input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password"/>
                 </div>
                 <button type="submit" id="sub_btn" class="btn btn-primary" onclick="return checkInfo()">
@@ -110,7 +114,7 @@
         distance: '100px'
     })
 </script>
-<script th:if="${code} eq -1">
+<script th:if="${code} eq -1 or 'delete_success'">
     sr.reveal(".warning-alert-style", {
         duration: 1500,
         origin: "top",
