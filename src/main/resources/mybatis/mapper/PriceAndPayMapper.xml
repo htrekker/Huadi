@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.PriceAndPayMapper">
+
+    <resultMap id="PriceAPayMapper" type="com.pasilo.bean.PriceAndPay">
+        <result column="city_name" property="cityName"/>
+        <result column="sale_price" property="salePrice"/>
+        <result column="rent_price" property="rentPrice"/>
+        <result column="avg_pay" property="avgPay"/>
+    </resultMap>
+
+    <select id="getAllPriceInfo" resultMap="PriceAPayMapper">
+      SELECT city_name, rent_price, sale_price
+      FROM price_pay
+    </select>
+
+    <select id="getAllInformation" resultMap="PriceAPayMapper">
+        SELECT * FROM price_pay;
+    </select>
+</mapper>

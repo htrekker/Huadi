@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.JobMapper">
+
+    <resultMap id="JobMapper" type="com.pasilo.bean.Job">
+        <result column="city_name" property="cityName"/>
+        <result column="job_count" property="jobAmount"/>
+    </resultMap>
+
+    <resultMap id="JobInfoMapper" type="com.pasilo.bean.JobInfo">
+        <result column="city_name" property="cityName"/>
+        <result column="avg_pay" property="avgPay"/>
+        <result column="job_name" property="jobName"/>
+        <result column="job_amount" property="jobAmount"/>
+    </resultMap>
+
+
+    <select id="getAllJobs" resultType="com.pasilo.bean.Job" resultMap="JobMapper">
+      SELECT * FROM job_count
+      ORDER BY job_count
+    </select>
+
+    <select id="getJobKindCount" resultMap="JobInfoMapper">
+      SELECT job_name, sum(job_amount) as job_amount FROM job_info
+      GROUP BY job_name
+    </select>
+
+    <select id="getJobPayCompare" resultMap="JobInfoMapper">
+        SELECT job_name, AVG(avg_pay) as avg_pay FROM job_info
+        GROUP BY job_name
+    </select>
+
+</mapper>

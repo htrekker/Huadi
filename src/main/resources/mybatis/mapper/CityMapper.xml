@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.CityDao">
+
+    <resultMap id="RankMapper" type="com.pasilo.bean.CityRank">
+        <result column="city_name" property="cityName"/>
+        <result column="job_amount" property="jobChance"/>
+        <result column="avg_pay" property="avgPay"/>
+        <result column="rent_afford" property="rentAfford"/>
+        <result column="sale_afford" property="saleAfford"/>
+        <result column="avg_rent_square" property="square"/>
+    </resultMap>
+
+    <select id="getAllJobs">
+        SELECT * FROM job_info;
+    </select>
+
+    <select id="getRankByCity" parameterType="string" resultType="com.pasilo.bean.CityRank" resultMap="RankMapper">
+      SELECT * FROM city_info
+      WHERE city_name=#{cityName}
+    </select>
+
+
+</mapper>

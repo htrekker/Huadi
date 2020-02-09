@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pasilo.dao.HouseCountDao">
+
+    <resultMap id="HousecountMapper" type="com.pasilo.bean.HouseCount">
+        <result column="city_name" property="cityName"></result>
+        <result column="rent_count" property="rentCount"></result>
+        <result column="sale_count" property="saleCount"></result>
+    </resultMap>
+
+    <select id="getTotalCount" resultType="com.pasilo.bean.HouseCount" resultMap="HousecountMapper">
+        SELECT city_name, sale_count, rent_count FROM house_count
+        ORDER BY sale_count+rent_count
+    </select>
+
+</mapper>

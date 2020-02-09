@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>System</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='icon' th:href="@{/image/title.png}"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        .log-out-base {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .log-out:hover {
+            margin-right: 15px;
+            color: #ffc107 !important;
+            text-decoration: none;
+        }
+
+        .Subhead-heading {
+            flex: 1 1 auto;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        footer {
+            padding: 24px 40px 24px 40px !important;
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, .05) !important;
+            display: flex;
+        }
+
+        footer ul {
+            list-style: none;
+            margin-bottom: 0px !important;
+        }
+
+        .danger-border {
+            border-radius: 5px;
+            border-width: 1px;
+            border-color: #d73a49;
+            border-style: solid;
+        }
+
+        .change-btn {
+            display: inline;
+        }
+
+        .delete-btn {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+<section>
+    <nav class="navbar navbar-expand-sm navbar-light bg-white">
+        <a class="navbar-brand" href="#" style="font-size: 30px!important;">
+            <img th:src="@{/image/title.png}" width="49" height="40"
+                 class="d-inline-block align-top" alt="">
+            System
+        </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <!--<ul class="navbar-nav mr-auto mt-2 mt-lg-0">-->
+                <!--<li class="nav-item active">-->
+                    <!--<a class="nav-link font-menu-item" href="#">Career</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link font-menu-item" href="#">House</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <div class="style-when-login-in">
+                <a href="login.html" class="log-out log-out-base">
+                    <span>Log out</span>
+                </a>
+                <a href="#" style="min-width: 40px;height: 40px!important;">
+                    <img alt="" class="rounded-circle"
+                         style="margin-right:20px;;max-width: 38px;max-height: 38px;">
+                </a>
+            </div>
+        </div>
+
+    </nav>
+</section>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">修改用户</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp"
+                               placeholder="Enter email" id="username" name="username">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your
+                            email
+                            with anyone else.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="text" class="form-control" placeholder="Password" id="password" name="password">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="type">
+                        <label class="form-check-label" for="exampleCheck1">If Admin or not?</label>
+                        <small class="form-text text-muted">If checked, this user will be
+                            admin.
+                        </small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="change-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">注意事项</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                如果您点击确认，用户：<span style="font-weight: bold;" id="delete-user"></span> 将被删除
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal">取消</button>
+                <button type="button" id="delete-confirm" class="btn btn-outline-danger">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 这是container部分 -->
+<section style="margin-top: 0px!important;min-height: calc(100vh - 142px);">
+    <div style="background-color: #fafbfc;">
+        <div>
+            <div class="container">
+                <img src="" alt=""/>
+                <h3 style="max-width: 1140px;">
+                        <span th:text="'欢迎您! 管理员: '+${session.username}">
+                            Pasiloishfz
+                        </span>
+                </h3>
+            </div>
+            <div style="height: 10px;"></div>
+        </div>
+    </div>
+    <div style="height: 20px;"></div>
+    <div class="container">
+        <!-- 警告alert -->
+        <div class="alert alert-danger alert-dismissible fade show mr-auto ml-auto" role="alert"
+             style="max-width: 400px; display: none;" id="danger-alert">
+            <strong>出错了!</strong> 请重新尝试。
+            <button type="button" class="close" onclick="$('#danger-alert').hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <!-- 成功alert -->
+        <div class="alert alert-success alert-dismissible fade show mr-auto ml-auto" role="alert"
+             style="max-width: 400px; display: none;" id="success-alert">
+            <strong>修改成功！</strong> 您的修改已经被提交。
+            <button type="button" class="close" onclick="$('#success-alert').hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row">
+            <div style="height: 20px;"></div>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr class="row mx-0">
+                    <th scope="col" class="col-1">用户ID</th>
+                    <th scope="col" class="col-4">用户名</th>
+                    <th scope="col" class="col-4">用户类型</th>
+                    <th scope="col" class="col-3">设置</th>
+                </tr>
+                </thead>
+                <tbody class="W-100">
+                <tr class="row mx-0" style="vertical-align: center;" th:each="item,iterStat: ${items}">
+                    <td class="col-1" th:text="${iterStat.index}">1</td>
+                    <td class="col-4" th:text="${item.username}">HFZ</td>
+                    <td class="col-4">
+                        <span th:if="${item.type} eq 1">普通用户</span>
+                        <span th:if="${item.type} eq 0">管理员</span>
+                    </td>
+                    <td class="col-3">
+                        <button style="text-align: center;" class="btn btn-primary change-btn">
+                            Change
+                        </button>
+                        <button th:class="${item.type} eq 1?'btn btn-danger delete-btn':'btn btn-danger disabled'"
+                                class="btn btn-danger delete-btn">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">button</button>
+        </div>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" th:if="${page_size} le 8">
+            <li class="page-item" th:class="${current_page} eq 1 ?'page-item disabled':'page-item'">
+                <a class="page-link" href="#" th:href="'/admin/pg'+(${current_page}-1)"
+                   tabindex="-1" aria-disabled="true">上一页</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1, page_size)}">
+                <a class="page-link" th:href="'/admin/pg'+${i}" th:text="${i}"></a>
+            </li>
+            <li class="page-item" th:class="(${current_page} eq ${page_size})?'page-item disabled':'page-item'">
+                <a class="page-link" th:href="'/admin/pg'+(${current_page}+1)">下一页</a>
+            </li>
+        </ul>
+        <!-- 当总页数大于8时， -->
+        <ul class="" th:if="${page_size} gt 8">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1, 3)}">
+                <a class="page-link" th:href="'/admin/pg'+${i}" th:text="${i}"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link">...</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="'/admin/pg'+(${page_size}-1)" th:text="${page_size}-1"></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="'/admin/pg'+${page_size}">下一页</a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+
+<footer>
+    <div th:replace="footer"></div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+<script>
+    window.sr = ScrollReveal()
+    sr.reveal('h3', {
+        duration: 1800,
+        origin: 'top',
+        distance: '200px'
+    })
+    sr.reveal('.navbar', {
+        duration: 1800,
+        origin: 'top',
+        distance: '100px'
+    })
+    sr.reveal('#infos', {
+        duration: 2000,
+        origin: 'right',
+        distance: '100px'
+    })
+    sr.reveal('#options', {
+        duration: 2000,
+        origin: 'left',
+        distance: '100px'
+    })
+    sr.reveal('#copyright', {
+        duration: 1000,
+        origin: 'bottom',
+        distance: '20px'
+    })
+    sr.reveal('#icons', {
+        duration: 1000,
+        origin: 'bottom',
+        distance: '20px'
+    })
+</script>
+<script>
+    var current_username = ''
+    var current_button
+    var modal = $('#modal')
+    change_btns = $('table tbody tr .change-btn')
+    for (i = 0; i < change_btns.length; i++) {
+        $(change_btns[i]).click(function (params) {
+            username = $(params.target).parent().prev().prev().text()
+            $.ajax('/user/' + username, {
+                method: 'GET',
+                success: function (data) {
+                    $('#username').val(data.username)
+                    $('#password').val(data.password)
+                    modal.modal('show')
+                }
+            })
+        })
+    }
+
+    delete_btns = $('table tbody tr .delete-btn')
+    for (i = 0; i < delete_btns.length; i++) {
+        $(delete_btns[i]).click(function (params) {
+            username = $(params.target).parent().prev().prev().text()
+            $('#delete-user').text(username)
+            $('#delete-modal').modal('show')
+        })
+    }
+
+    $('#change-confirm').click(function () {
+        var state = $('#modal').css('display')
+        if (state === 'block') {
+            $.ajax('/admin/change', {
+                method: 'POST',
+                data: $('#form').serialize(),
+                success: function (msg) {
+                    modal.modal('hide')
+                    if (msg === 'SUCCESS') {
+                        $('#success-alert').show()
+                        location.reload()
+                    } else if (msg === 'ERROR') {
+                        $('#danger-alert').show()
+                    }
+                }
+            })
+        }
+    })
+
+    $('#delete-confirm').click(function (params) {
+        // var username = $(params.target).parent().prev().prev().text()
+        var state = $('#delete-modal').css('display')
+        if (state === 'block') {
+            $.ajax("/delete/" + username, {
+                method: 'POST',
+                success: function (msg) {
+                    $('#delete-modal').modal('hide')
+                    window.location = window.location.pathname
+                }
+            })
+        }
+    })
+</script>
+</body>
+
+</html>
